@@ -147,6 +147,12 @@ public extension iGraphicsBox {
         return view
     }
     
+    private func style(_ style: Style) -> iGraphicsBox {
+        var view = self
+        view.style = style
+        return view
+    }
+    
     /**
      Modifies how many graphics boxes are stacked on top of each other.
      
@@ -194,10 +200,12 @@ public extension iGraphicsBox {
         VStack(spacing: 0) {
             ForEach(0..<styles.count, id: \.self) { i in
                 if alternating && i % 2 != 0 {
-                    iGraphicsBox(styles[i])
+                    self
+                        .style(styles[i])
                         .flip()
                 } else {
-                    iGraphicsBox(styles[i])
+                    self
+                        .style(styles[i])
                 }
             }
         }
@@ -304,6 +312,12 @@ public struct iGraphicsSwipeView: View {
     /// - Parameter style: Which number in a sequence of dummy views that should be displayed.
     public init(_ style: Style = .first) {
         self.style = style
+    }
+    
+    public static var all: [iGraphicsSwipeView] {
+        [iGraphicsSwipeView(.first),
+         iGraphicsSwipeView(.second),
+         iGraphicsSwipeView(.third)]
     }
     
     public var body: some View {
