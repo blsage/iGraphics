@@ -8,15 +8,38 @@
 import SwiftUI
 
 @available(iOS 13.0, *)
+/**
+ Dummy gray box graphics to simulate text, images, or other content.
+ 
+ Comes with several different style options:
+ 1. **Photo**: A small square photo with simulated text on its left or right
+ 2. **Paragraph**: A long rectangle with about 3:1 aspect ratio
+ 3. **Card**: A large and tall, almost square rounded box
+ 4. **Caption**: A long rectangle like paragraph but thinner, as if simulating less text
+ 
+ Boxes can be easily stacked with proper spacing and padding by using the `.stack(_::)` modifier.
+ 
+ */
 public struct iGraphicsBox: View {
     private var textSize: CGFloat = 12
     private var flipped: Bool = false
     private var photoSize: CGFloat = 60
     private var cardSize: CGFloat = 150
     
+    /**
+     The style of the gray dummy boxes. Default is `.photo`.
+     
+     Comes with several options:
+     1. **Photo**: A small square photo with simulated text on its left or right
+     2. **Paragraph**: A long rectangle with about 3:1 aspect ratio
+     3. **Card**: A large and tall, almost square rounded box
+     4. **Caption**: A long rectangle like paragraph but thinner, as if simulating less text
+    */
     public enum Style { case photo, paragraph, card, caption }
     private var style: Style
     
+    /// Creates a new `iGraphicsBox` object in a desired style
+    /// - Parameter style: Optional parameter for the graphics box style. Defaults to `.photo`.
     public init(_ style: Style = .photo) {
         self.style = style
     }
@@ -84,70 +107,115 @@ public struct iGraphicsBox: View {
 
 @available(iOS 13.0, *)
 public extension iGraphicsBox {
-    public func flip() -> iGraphicsBox {
+    
+    /// Flips the of `iGraphicsBox` across its horizontal axis, so the image is on the right and the text is on the left.
+    /// Applies only to the `Style.photo` style, since the others are symmetrical.
+    /// - Returns: A modified graphics box view flipped horizontally
+    func flip() -> iGraphicsBox {
         var view = self
         view.flipped.toggle()
         return view
     }
-    
-    public func textSize(_ size: CGFloat) -> iGraphicsBox {
+
+    /**
+     Modifies the text size that the boxes of words are meant to simulate.
+     
+     Passing a large number will make these boxes taller, and passing a small number will make the boxes shorter.
+     Applies only to the `.photo` box size, since it's the only one that has simulated lines of text.
+     
+     - Parameter size: The size of the simulated font, in points.
+     - Returns: A simulated graphics box with updated text size settings.
+     */
+    func textSize(_ size: CGFloat) -> iGraphicsBox {
         var view = self
         view.textSize = size
         return view
     }
-    
-    public func photoSize(_ size: CGFloat) -> iGraphicsBox {
+
+    /**
+     Modifies the photo size that the boxes are meant to simulate.
+     
+     Passing a large number will make these photo boxes larger, and passing a small number will make the photo boxes smaller.
+     Applies only to the `.photo` box size, since it's the only one that has simulated a photo.
+
+     - Parameter size: The size of the simulated photos, in points.
+     - Returns: A simulated graphics box with updated photo size settings.
+     */
+    func photoSize(_ size: CGFloat) -> iGraphicsBox {
         var view = self
         view.photoSize = size
         return view
     }
     
-    public func style(_ style: Style) -> iGraphicsBox {
-        var view = self
-        view.style = style
-        return view
-    }
-    
-    public func stack(_ number: Int,
+    /**
+     Modifies how many graphics boxes are stacked on top of each other.
+     
+     Allows you to easily stack simulated graphics without worrying about spacing creating your own `VStack` object.
+     
+     Will stack based on the style specificied in the constructor. To stack different types of boxes, use the other `.stack(_::)` modifier.
+     
+     - Parameters:
+        - number: The number of graphics boxes that should be stacked on top of each other
+        - alternating: Whether or not alternating boxes should be flipped.
+     - Seealso: `iGraphicsBox.flip(_:)`
+     - Returns: A simulated graphics view with a specified number of stacked boxes.
+     */
+    func stack(_ number: Int,
                alternating: Bool = false) -> some View
     {
         VStack(spacing: 0) {
             ForEach(0..<number, id: \.self) { i in
                 if alternating && i % 2 != 0 {
-                    iGraphicsBox()
-                        .style(style)
+                    iGraphicsBox(style)
                         .flip()
                 } else {
-                    iGraphicsBox()
-                        .style(style)
+                    iGraphicsBox(style)
                 }
             }
         }
     }
-    
-    public func stack(_ styles: [Style],
+
+    /**
+     Modifies how many graphics boxes are stacked on top of each other.
+     
+     Allows you to easily stack simulated graphics without worrying about spacing creating your own `VStack` object.
+     
+     Will stack based on the styles specificied in the `styles` parameter.
+     
+     - Parameters:
+        - styles: An array of the box styles that you would like to be stacked, in order.
+        - alternating: Whether or not alternating boxes should be flipped.
+     - Seealso: `iGraphicsBox.flip(_:)`
+     - Returns: A simulated graphics view with a specified sequence of stacked boxes.
+     */
+    func stack(_ styles: [Style],
                alternating: Bool = false) -> some View
     {
         VStack(spacing: 0) {
             ForEach(0..<styles.count, id: \.self) { i in
                 if alternating && i % 2 != 0 {
-                    iGraphicsBox()
-                        .style(styles[i])
+                    iGraphicsBox(styles[i])
                         .flip()
                 } else {
-                    iGraphicsBox()
-                        .style(styles[i])
+                    iGraphicsBox(styles[i])
                 }
             }
         }
-        
+
     }
 }
 
 @available(iOS 13.0, *)
+/**
+ A view that easily creates great-looking dummy text to be used for placeholding.
+ 
+ Automatically adapts to light or dark theme.
+ */
 public struct iGraphicsText: View {
     private var style: iGraphicsSwipeView.Style
     
+    /// Creates new dummy text object with specified style.
+    /// - Parameter style: Which number in a sequence of dummy images that should be displayed.
     public init(_ style: iGraphicsSwipeView.Style = .first) {
         self.style = style
     }
@@ -193,9 +261,12 @@ public struct iGraphicsText: View {
 }
 
 @available(iOS 13.0.0, *)
+/// A great-looking dummy-image view displays as a square, and can show a number of different images.
 public struct iGraphicsImage: View {
     private var style: iGraphicsSwipeView.Style
     
+    /// Creates a new dummy image view from a specified style of image.
+    /// - Parameter style: Which number in a sequence of dummy images that should be displayed.
     public init(_ style: iGraphicsSwipeView.Style = .first) {
         self.style = style
     }
@@ -222,10 +293,15 @@ public struct iGraphicsImage: View {
 }
 
 @available(iOS 13.0.0, *)
+/// A great-looking dummy combined image and text view.
+/// Comes in several different styles created from a sequence. Ideal for display in a page view.
 public struct iGraphicsSwipeView: View {
     private var style: Style
+    /// Which number in a sequence of dummy views that should be displayed.
     public enum Style { case first, second, third }
     
+    /// Creates a new dummy swipe view from a specified style of image.
+    /// - Parameter style: Which number in a sequence of dummy views that should be displayed.
     public init(_ style: Style = .first) {
         self.style = style
     }
