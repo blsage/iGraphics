@@ -8,11 +8,18 @@
 import SwiftUI
 
 @available(iOS 13.0, *)
-struct iGraphicsBox: View {
+public struct iGraphicsBox: View {
     private var textSize: CGFloat = 12
     private var flipped: Bool = false
     private var photoSize: CGFloat = 60
     private var cardSize: CGFloat = 150
+    
+    public enum Style { case photo, paragraph, card, caption }
+    private var style: Style
+    
+    public init(_ style: Style = .photo) {
+        self.style = style
+    }
     
     @Environment(\.colorScheme) var colorScheme
     
@@ -46,13 +53,7 @@ struct iGraphicsBox: View {
             .cornerRadius(10)
     }
     
-    public enum Style {
-        case photo, paragraph, card, caption
-    }
-    
-    private var style: Style = .photo
-    
-    var body: some View {
+    public var body: some View {
         GeometryReader { g in
             switch style {
             case .photo:
@@ -82,32 +83,32 @@ struct iGraphicsBox: View {
 }
 
 @available(iOS 13.0, *)
-extension iGraphicsBox {
-    func flip() -> iGraphicsBox {
+public extension iGraphicsBox {
+    public func flip() -> iGraphicsBox {
         var view = self
         view.flipped.toggle()
         return view
     }
     
-    func textSize(_ size: CGFloat) -> iGraphicsBox {
+    public func textSize(_ size: CGFloat) -> iGraphicsBox {
         var view = self
         view.textSize = size
         return view
     }
     
-    func photoSize(_ size: CGFloat) -> iGraphicsBox {
+    public func photoSize(_ size: CGFloat) -> iGraphicsBox {
         var view = self
         view.photoSize = size
         return view
     }
     
-    func style(_ style: Style) -> iGraphicsBox {
+    public func style(_ style: Style) -> iGraphicsBox {
         var view = self
         view.style = style
         return view
     }
     
-    func stack(_ number: Int,
+    public func stack(_ number: Int,
                alternating: Bool = false) -> some View
     {
         VStack(spacing: 0) {
@@ -124,7 +125,7 @@ extension iGraphicsBox {
         }
     }
     
-    func stack(_ styles: [Style],
+    public func stack(_ styles: [Style],
                alternating: Bool = false) -> some View
     {
         VStack(spacing: 0) {
@@ -144,7 +145,7 @@ extension iGraphicsBox {
 }
 
 @available(iOS 13.0, *)
-struct iGraphicsText: View {
+public struct iGraphicsText: View {
     private var style: iGraphicsSwipeView.Style
     
     public init(_ style: iGraphicsSwipeView.Style = .first) {
@@ -180,7 +181,7 @@ struct iGraphicsText: View {
         }
     }
     
-    var body: some View {
+    public var body: some View {
         Text(text)
             .font(.system(size: 16, weight: weight, design: .rounded))
             .fixedSize(horizontal: false, vertical: true)
@@ -192,7 +193,7 @@ struct iGraphicsText: View {
 }
 
 @available(iOS 13.0.0, *)
-struct iGraphicsImage: View {
+public struct iGraphicsImage: View {
     private var style: iGraphicsSwipeView.Style
     
     public init(_ style: iGraphicsSwipeView.Style = .first) {
@@ -207,7 +208,7 @@ struct iGraphicsImage: View {
         }
     }
     
-    var body: some View {
+    public var body: some View {
         GeometryReader { g in
             Image(name)
                 .resizable()
@@ -221,7 +222,7 @@ struct iGraphicsImage: View {
 }
 
 @available(iOS 13.0.0, *)
-struct iGraphicsSwipeView: View {
+public struct iGraphicsSwipeView: View {
     private var style: Style
     public enum Style { case first, second, third }
     
@@ -229,7 +230,7 @@ struct iGraphicsSwipeView: View {
         self.style = style
     }
     
-    var body: some View {
+    public var body: some View {
         VStack(spacing: 0) {
             iGraphicsImage(style)
             iGraphicsText(style)

@@ -1,3 +1,3 @@
 # iGraphics
 
-A package of 
+A package of views and graphics to use as stand-ins for real content.
