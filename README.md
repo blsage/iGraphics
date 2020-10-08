@@ -1,3 +1,3 @@
 # iGraphics
 
-A description of this package.
+A package of 
