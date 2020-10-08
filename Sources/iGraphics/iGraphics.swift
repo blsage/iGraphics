@@ -166,10 +166,10 @@ public extension iGraphicsBox {
         VStack(spacing: 0) {
             ForEach(0..<number, id: \.self) { i in
                 if alternating && i % 2 != 0 {
-                    iGraphicsBox(style)
+                    self
                         .flip()
                 } else {
-                    iGraphicsBox(style)
+                    self
                 }
             }
         }
