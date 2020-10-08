@@ -281,7 +281,7 @@ public struct iGraphicsImage: View {
     
     public var body: some View {
         GeometryReader { g in
-            Image(name)
+            Image(name, bundle: .module)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .padding()
