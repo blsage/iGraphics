@@ -314,6 +314,7 @@ public struct iGraphicsSwipeView: View {
         self.style = style
     }
     
+    /// Easily access an array to all the views, to be used, for example, in a page view.
     public static var all: [iGraphicsSwipeView] {
         [iGraphicsSwipeView(.first),
          iGraphicsSwipeView(.second),
