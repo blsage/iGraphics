@@ -220,11 +220,11 @@ public extension iGraphicsBox {
  Automatically adapts to light or dark theme.
  */
 public struct iGraphicsText: View {
-    private var style: iGraphicsSwipeView.Style
+    private var style: iGraphicsView.Style
     
     /// Creates new dummy text object with specified style.
     /// - Parameter style: Which number in a sequence of dummy images that should be displayed.
-    public init(_ style: iGraphicsSwipeView.Style = .first) {
+    public init(_ style: iGraphicsView.Style = .first) {
         self.style = style
     }
     
@@ -271,11 +271,11 @@ public struct iGraphicsText: View {
 @available(iOS 13.0.0, *)
 /// A great-looking dummy-image view displays as a square, and can show a number of different images.
 public struct iGraphicsImage: View {
-    private var style: iGraphicsSwipeView.Style
+    private var style: iGraphicsView.Style
     
     /// Creates a new dummy image view from a specified style of image.
     /// - Parameter style: Which number in a sequence of dummy images that should be displayed.
-    public init(_ style: iGraphicsSwipeView.Style = .first) {
+    public init(_ style: iGraphicsView.Style = .first) {
         self.style = style
     }
     
@@ -303,7 +303,7 @@ public struct iGraphicsImage: View {
 @available(iOS 13.0.0, *)
 /// A great-looking dummy combined image and text view.
 /// Comes in several different styles created from a sequence. Ideal for display in a page view.
-public struct iGraphicsSwipeView: View {
+public struct iGraphicsView: View {
     private var style: Style
     /// Which number in a sequence of dummy views that should be displayed.
     public enum Style { case first, second, third }
@@ -315,10 +315,10 @@ public struct iGraphicsSwipeView: View {
     }
     
     /// Easily access an array to all the views, to be used, for example, in a page view.
-    public static var all: [iGraphicsSwipeView] {
-        [iGraphicsSwipeView(.first),
-         iGraphicsSwipeView(.second),
-         iGraphicsSwipeView(.third)]
+    public static var all: [iGraphicsView] {
+        [iGraphicsView(.first),
+         iGraphicsView(.second),
+         iGraphicsView(.third)]
     }
     
     public var body: some View {
