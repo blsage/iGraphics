@@ -327,3 +327,14 @@ public struct iGraphicsView: View {
         }
     }
 }
+
+
+@available(iOS 13.0.0, *)
+public struct iGraphicShoppingApp: View {
+    
+    public init() {}
+    
+    public var body: some View {
+        iGraphicsBox().stack(3)
+    }
+}
