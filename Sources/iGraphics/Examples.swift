@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(iOS 13.0.0, *)
 public extension iGraphicsView {
     struct iGraphicShoppingApp: View {
         public var body: some View {

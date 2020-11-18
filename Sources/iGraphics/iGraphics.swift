@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(iOS 13.0, *)
 /**
  A view of gray box graphics ◽️◻️▫️⬜️ to simulate text, images, or other content.
  
@@ -107,7 +106,6 @@ public struct iGraphicsBox: View {
     }
 }
 
-@available(iOS 13.0, *)
 public extension iGraphicsBox {
     
     /// Flips the of `iGraphicsBox` across its horizontal axis, 👈👉 so the image is on the right and the text is on the left.
@@ -212,7 +210,6 @@ public extension iGraphicsBox {
     }
 }
 
-@available(iOS 13.0, *)
 /**
  A view that easily creates great-looking dummy text 📖 to be used for placeholding.
  
@@ -267,7 +264,6 @@ public struct iGraphicsText: View {
     }
 }
 
-@available(iOS 13.0.0, *)
 /// A great-looking dummy **image** view 🖼 displays as a square, and can show a number of different images.
 public struct iGraphicsImage: View {
     private var style: iGraphicsView.Style
@@ -299,7 +295,6 @@ public struct iGraphicsImage: View {
     }
 }
 
-@available(iOS 13.0.0, *)
 /// A great-looking dummy **combined image 🏙 and text 📜** view.
 /// Comes in several different styles created from a sequence. Ideal for display in a page view.
 public struct iGraphicsView: View {
